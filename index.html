@@ -69,16 +69,19 @@
             margin-top: 20px;
             cursor: pointer;
         }
-        .play-music-btn {
+        .music-controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
+        }
+        .music-controls button {
             background-color: blue;
             color: white;
             padding: 10px 15px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
+            margin: 5px;
         }
     </style>
 </head>
@@ -88,15 +91,26 @@
         <button class="yes-btn" onclick="sayYes()">Yes</button>
         <button class="no-btn" onclick="moveNoButton()">No</button>
     </div>
-    <button class="play-music-btn" onclick="playMusic()">Play Music</button>
+    <div class="music-controls">
+        <button onclick="playMusic()">Play Music</button>
+        <button onclick="pauseMusic()">Pause Music</button>
+    </div>
     <img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" alt="Cute Cat">
     
-    <iframe id="musicFrame" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+    <audio id="backgroundMusic" loop>
+        <source src="https://drive.google.com/uc?export=download&id=1szcou9keO6eD1-1TAsN5jTXCQjcydgj9" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     
     <script>
         function playMusic() {
-            let iframe = document.getElementById("musicFrame");
-            iframe.src = "https://www.youtube.com/embed/PXGycbkbtW0?autoplay=1&loop=1&playlist=PXGycbkbtW0";
+            let audio = document.getElementById("backgroundMusic");
+            audio.play();
+        }
+
+        function pauseMusic() {
+            let audio = document.getElementById("backgroundMusic");
+            audio.pause();
         }
 
         let messages = ["Are you sure?", "Think again!", "Really? 😢", "Last chance!", "Pleaseeee 😭"];

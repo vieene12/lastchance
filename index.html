@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lover Proposal</title>
+    <style>
+        body {
+            background-color: #ffccdc;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        h1 {
+            color: red;
+            font-size: 30px;
+            margin-top: 50px;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+        .yes-btn {
+            background-color: green;
+            color: white;
+            position: relative;
+            font-size: 18px;
+            z-index: 2;
+        }
+        .no-btn {
+            background-color: red;
+            color: white;
+            position: absolute;
+        }
+        .huge {
+            font-size: 50px;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: url('https://i.imgur.com/QrEBr8d.png') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .love-gif {
+            width: 300px;
+            margin-top: 20px;
+        }
+        .final-yes-btn {
+            display: none;
+            background-color: white;
+            color: green;
+            font-size: 24px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .play-music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: blue;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my lover?</h1>
+    <div class="buttons">
+        <button class="yes-btn" onclick="sayYes()">Yes</button>
+        <button class="no-btn" onclick="moveNoButton()">No</button>
+    </div>
+    <button class="play-music-btn" onclick="playMusic()">Play Music</button>
+    <img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" alt="Cute Cat">
+    
+    <iframe id="musicFrame" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+    
+    <script>
+        function playMusic() {
+            let iframe = document.getElementById("musicFrame");
+            iframe.src = "https://www.youtube.com/embed/PXGycbkbtW0?autoplay=1&loop=1&playlist=PXGycbkbtW0";
+        }
+
+        let messages = ["Are you sure?", "Think again!", "Really? 😢", "Last chance!", "Pleaseeee 😭"];
+        let index = 0;
+        let yesButton = document.querySelector(".yes-btn");
+        let yesFontSize = 18;
+        let noClickCount = 0;
+
+        function sayYes() {
+            document.body.innerHTML = `
+                <div class="huge">
+                    <p>YEAH! I LOVE YOU ❤️</p>
+                    <img class="love-gif" src="https://media2.giphy.com/media/lTQF0ODLLjhza/giphy.gif" alt="Love GIF">
+                </div>
+            `;
+        }
+
+        function moveNoButton() {
+            let button = document.querySelector(".no-btn");
+            let x = Math.random() * (window.innerWidth - 150);
+            let y = Math.random() * (window.innerHeight - 50);
+            button.style.left = x + "px";
+            button.style.top = y + "px";
+            button.innerText = messages[index];
+            index = (index + 1) % messages.length;
+            noClickCount++;
+            yesFontSize += 5;
+            yesButton.style.fontSize = yesFontSize + "px";
+            
+            if (noClickCount >= 12) {
+                document.body.innerHTML = `
+                    <div class="huge">
+                        <p>YOU HAVE NO CHOICE! JUST SAY YES ❤️</p>
+                        <button class="final-yes-btn" onclick="sayYes()">YES</button>
+                        <img class="love-gif" src="https://media2.giphy.com/media/lTQF0ODLLjhza/giphy.gif" alt="Love GIF">
+                    </div>
+                `;
+                document.querySelector(".final-yes-btn").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
